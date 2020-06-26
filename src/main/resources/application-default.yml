@@ -1,0 +1,44 @@
+spring:
+  profiles:    active:    - default
+  datasource:
+    platform: mariadb
+    url: jdbc:mariadb://localhost:3306/test
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: test
+    password: "test1111"
+    hikari:
+      maximum-pool-size: 1
+      connection-init-sql: select 1
+      connection-test-query: select 1
+      pool-name: demo-jpa-hikari-pool
+  jpa:
+    database: mysql
+    #InnoDB 설정
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    #기본설정, MyISAM
+    #database-platform: org.hibernate.dialect.MySQL5Dialect
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+  # *** 구매 개발 redis로 임시 설정, 네트워크 문제(e.g.방화벽 등)로 연결이 안될 경우 store-type을 jdbc로 변경하여 db 세션관리로 변경할 것
+  session:
+    store-type: jdbc
+#    store-type: redis
+#    redis:
+#      namespace: intrasys:session
+#  redis:
+#    host: localhost
+#    password: 1111
+#    port: 6379
+#    jedis:
+#      pool:
+#        max-idle: -1
+#        max-active: -1
+#        min-idle: -1
+#  mvc:
+#    static-path-pattern: /static/**
+logging:
+  level:    com.skcc.demo: debug
